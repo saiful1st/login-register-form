@@ -1,6 +1,7 @@
 <?php
     include 'header.php';
     include 'lib/User.php';
+    Session::checkRegister()
     ?>
 <?php
     $user = new User();

@@ -19,9 +19,18 @@ Session::init();
 ?>
 <body>
     <div class="container">
+
+    <?php
+        $id = Session::get("id");
+        $userLogin = Session::get("login");
+        if ($userLogin == true) {
+    ?>
+    <h5>Want to logout</h5>
+    <a class="btn btn-primary" href="?action=logout">Logout</a>
+<?php }else {?>
     <h3>Do not have account? </h3>
     <a class="btn btn-primary"  href="register.php">Please Register</a>
     <h4>Already registered user?</h4>
     <a class="btn btn-primary" href="login.php">Please Log in</a>
-    <h5>Want to logout</h5>
-    <a class="btn btn-primary" href="?action=logout">Logout</a>
+    <a class="btn btn-primary" href="index.php">Home</a>
+<?php } ?>

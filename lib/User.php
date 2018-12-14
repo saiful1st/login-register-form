@@ -108,6 +108,15 @@
             }
         }
 
+        public function getUserById($userid){
+            $sql = "SELECT * FROM boot_oop WHERE id = :id LIMIT 1";
+            $query = $this->db->pdo->prepare($sql);
+            $query->bindValue(':id', $userid);
+            $query->execute();
+            $result = $query->fetch(PDO::FETCH_OBJ);
+            return $result;
+        }
+
 
     }
 

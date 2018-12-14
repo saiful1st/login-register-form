@@ -1,4 +1,14 @@
-<?php include 'header.php'; ?>
+<?php
+include 'lib/User.php';
+include 'header.php';
+Session::checkSession();
+?>
+<?php
+	if (isset($_GET['id'])) {
+		$userid = (int)$_GET['id'];
+	}
+	$user = new User();
+?>
 <div class="container">
 		<div class="col-md-9">
 		    <div class="card">
@@ -15,30 +25,34 @@
 		            </div>
 		            <div class="row">
 		                <div class="col-md-12">
+							<?php
+								$userData = $user->getUserById($userid);
+								if ($userData) {
+
+							 ?>
 		                    <form action="" method="POST">
                               <div class="form-group row">
                                 <label for="username" class="col-4 col-form-label">User Name*</label>
                                 <div class="col-8">
-                                  <input id="username" name="username" placeholder="Username" class="form-control here" type="text" value="saiful96">
+                                  <input id="username" name="username" placeholder="Username" class="form-control here" type="text" value="<?php echo $userData->username; ?>">
                                 </div>
                               </div>
                               <div class="form-group row">
                                 <label for="name" class="col-4 col-form-label">First Name</label>
                                 <div class="col-8">
-                                  <input id="name" name="name" placeholder="First Name" class="form-control here" type="text" value="Saiful">
+                                  <input id="name" name="name" placeholder="First Name" class="form-control here" type="text" value="<?php echo $userData->firstname; ?>">
                                 </div>
                               </div>
                               <div class="form-group row">
                                 <label for="lastname" class="col-4 col-form-label">Last Name</label>
                                 <div class="col-8">
-                                  <input id="lastname" name="lastname" placeholder="Last Name" class="form-control here" type="text" value="Islam">
+                                  <input id="lastname" name="lastname" placeholder="Last Name" class="form-control here" type="text" value="<?php echo $userData->lastname; ?>">
                                 </div>
                               </div>
                               <div class="form-group row">
                                 <label for="select" class="col-4 col-form-label">Display Your role as</label>
                                 <div class="col-8">
-                                  <select id="select" name="select" class="custom-select">
-                                  	<option>Choose...</option>
+                                  <select id="select" name="select" class="custom-select" value="<?php echo $userData->role; ?>">
                                     <option value="admin">User</option>
                                     <option value="admin">Moderator</option>
                                     <option value="admin">Administrator</option>
@@ -48,7 +62,7 @@
                               <div class="form-group row">
                                 <label for="email" class="col-4 col-form-label">Email*</label>
                                 <div class="col-8">
-                                  <input id="email" name="email" placeholder="Email" class="form-control here" type="text" value="saifulislam265@gmail.com">
+                                  <input id="email" name="email" placeholder="Email" class="form-control here" type="text" value="<?php echo $userData->email; ?>">
                                 </div>
                               </div>
                               <div class="form-group row">
@@ -64,6 +78,7 @@
                                 </div>
                               </div>
                             </form>
+							<?php } ?>
 		                </div>
 		            </div>
 

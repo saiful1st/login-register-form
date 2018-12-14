@@ -1,6 +1,7 @@
 <?php
     include 'header.php';
     include 'lib/User.php';
+    Session::checkSession();
     $user = new User();
 
 ?>
@@ -26,8 +27,9 @@
           <div class="profile-usertitle-name">
               <?php
               $fname = Session::get("firstname");
-              if (isset($fname)) {
-                  echo $fname;
+              $lname = Session::get("lastname");
+              if (isset($fname) && isset($lname)) {
+                  echo $fname." ".$lname;
               }
               ?>
           </div>
@@ -64,7 +66,7 @@
               Overview </a>
             </li>
             <li>
-              <a href="profile.php">
+              <a href="profile.php?id=<?php echo $id; ?>">
               <i class="fas fa-sliders-h"></i>
               Account Settings </a>
             </li>
