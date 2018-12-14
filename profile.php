@@ -8,6 +8,9 @@ Session::checkSession();
 		$userid = (int)$_GET['id'];
 	}
 	$user = new User();
+  if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update'])) {
+        $updateUser = $user->updateUserData($userid, $_POST);
+    }
 ?>
 <div class="container">
 		<div class="col-md-9">
@@ -25,10 +28,14 @@ Session::checkSession();
 		            </div>
 		            <div class="row">
 		                <div class="col-md-12">
+              <?php 
+                if (isset($updateUser)) {
+                  echo $updateUser;
+                }
+              ?>
 							<?php
 								$userData = $user->getUserById($userid);
 								if ($userData) {
-
 							 ?>
 		                    <form action="" method="POST">
                               <div class="form-group row">
@@ -40,7 +47,7 @@ Session::checkSession();
                               <div class="form-group row">
                                 <label for="name" class="col-4 col-form-label">First Name</label>
                                 <div class="col-8">
-                                  <input id="name" name="name" placeholder="First Name" class="form-control here" type="text" value="<?php echo $userData->firstname; ?>">
+                                  <input id="name" name="firstname" placeholder="First Name" class="form-control here" type="text" value="<?php echo $userData->firstname; ?>">
                                 </div>
                               </div>
                               <div class="form-group row">
@@ -49,16 +56,7 @@ Session::checkSession();
                                   <input id="lastname" name="lastname" placeholder="Last Name" class="form-control here" type="text" value="<?php echo $userData->lastname; ?>">
                                 </div>
                               </div>
-                              <div class="form-group row">
-                                <label for="select" class="col-4 col-form-label">Display Your role as</label>
-                                <div class="col-8">
-                                  <select id="select" name="select" class="custom-select" value="<?php echo $userData->role; ?>">
-                                    <option value="admin">User</option>
-                                    <option value="admin">Moderator</option>
-                                    <option value="admin">Administrator</option>
-                                  </select>
-                                </div>
-                              </div>
+        
                               <div class="form-group row">
                                 <label for="email" class="col-4 col-form-label">Email*</label>
                                 <div class="col-8">
@@ -73,7 +71,7 @@ Session::checkSession();
                               </div>
                               <div class="form-group row">
                                 <div class="offset-4 col-8">
-                                  <button name="submit" type="submit" class="btn btn-primary">Update My Profile</button>
+                                  <button name="update" type="submit" class="btn btn-primary">Update My Profile</button>
                                   <a class="btn btn-primary" href="changePassword.php">Change password</a>
                                 </div>
                               </div>

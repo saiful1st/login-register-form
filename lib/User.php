@@ -117,6 +117,28 @@
             return $result;
         }
 
+        public function updateUserData($userid, $data){
+            $firstname = $data['firstname'];
+            $lastname = $data['lastname'];
+            $username = $data['username'];
+            $email = $data['email'];
+            $sql = "UPDATE boot_oop SET firstname = :firstname, lastname = :lastname, username = :username, email = :email WHERE id = :id";
+            $query = $this->db->pdo->prepare($sql);
+            $query->bindValue(':firstname', $firstname);
+            $query->bindValue(':lastname', $lastname);
+            $query->bindValue(':username', $username);
+            $query->bindValue(':email', $email);
+            $query->bindValue(':id', $userid);
+            $result = $query->execute();
+            if ($result) {
+                $msg = "<div class='alert alert-success'>Succes! User data updated successfully</div>";
+                return $msg;
+            }else {
+                $msg = "<div class='alert alert-danger'>Alert! User could not update data at this moment, please try again later</div>";
+                return $msg;
+            }
+        }
+
 
     }
 
